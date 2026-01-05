@@ -1,0 +1,43 @@
+trigger:
+  -  main
+pool: AnkitPool
+steps:
+- task: TerraformInstaller@1
+  displayName: terraforminstall
+  inputs:
+    terraformVersion: 'latest'
+
+- task: TerraformTask@5
+  displayName: Terraforminit
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    backendServiceArm: 'AnkitSConnection'
+    backendAzureRmStorageAccountName: 'ankitsg'
+    backendAzureRmContainerName: 'statefile'
+    backendAzureRmKey: 'p.terraform.tfstate'
+- task: TerraformTask@5
+  displayName: terraformvalidate
+  inputs:
+    provider: 'azurerm'
+    command: 'validate'
+- task: TerraformTask@5
+  displayName: terraformfmt
+  inputs:
+    provider: 'azurerm'
+    command: 'custom'
+    outputTo: 'console'
+    customCommand: 'fmt'
+    environmentServiceNameAzureRM: 'AnkitSConnection'
+- task: TerraformTask@5
+  displayName: terraformplan
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    environmentServiceNameAzureRM: 'AnkitSConnection'
+- task: TerraformTask@5
+  displayName: terraformapply
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    environmentServiceNameAzureRM: 'AnkitSConnection'
