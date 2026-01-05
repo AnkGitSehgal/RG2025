@@ -24,3 +24,8 @@ resource "azurerm_resource_group" "Ankit_Ifra2" {
   location = "West Europe"
 }
 
+resource "azurerm_resource_group" "Ankit_Ifra3" {
+  name     = "Infra_PipelineNew"
+  location = "West Europe"
+}
+
