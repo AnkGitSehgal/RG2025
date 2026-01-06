@@ -1,6 +1,5 @@
-trigger:
-  -  main
-pool: AnkitPool
+trigger: none
+pool: Jan25
 steps:
 - task: TerraformInstaller@1
   displayName: terraforminstall
